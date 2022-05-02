@@ -3,14 +3,16 @@ create database hammad
 go
 use hammad
 go
+
 create table Students
 (
-RollNo varchar(7) primary key
-,Name varchar(30)
-,WarningCount int
-,Department varchar(15)
+RollNo varchar(7) primary key ,
+Name varchar(30),
+WarningCount int,
+Department varchar(15)
 )
 GO
+
 INSERT [dbo].[Students] ([RollNo], [Name], [WarningCount], [Department]) VALUES (N'1', N'Ali', 0, N'CS')
 INSERT [dbo].[Students] ([RollNo], [Name], [WarningCount], [Department]) VALUES (N'2', N'Bilal', 0, N'CS')
 INSERT [dbo].[Students] ([RollNo], [Name], [WarningCount], [Department]) VALUES (N'3', N'Ayesha', 0, N'CS')
