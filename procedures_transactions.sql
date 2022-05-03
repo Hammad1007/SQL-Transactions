@@ -1,9 +1,11 @@
 drop database hammad
+
 create database hammad
 go
 use hammad
 go
 
+-- table students
 create table Students
 (
 RollNo varchar(7) primary key ,
@@ -21,8 +23,9 @@ INSERT [dbo].[Students] ([RollNo], [Name], [WarningCount], [Department]) VALUES 
 INSERT [dbo].[Students] ([RollNo], [Name], [WarningCount], [Department]) VALUES (N'6', N'Salman', 1, N'EE')
 INSERT [dbo].[Students] ([RollNo], [Name], [WarningCount], [Department]) VALUES (N'7', N'Zainab', 2, N'CS')
 INSERT [dbo].[Students] ([RollNo], [Name], [WarningCount], [Department]) VALUES (N'8', N'Danial', 1, N'CS')
-
 go
+
+-- table courses
 create table Courses
 (
 CourseID int primary key,
@@ -31,37 +34,41 @@ PrerequiteCourseID int,
 CreditHours int
 ) 
 GO
+
 INSERT [dbo].[Courses] ([CourseID], [CourseName], [PrerequiteCourseID],CreditHours) VALUES (10, N'Database Systems', 20, 3)
 INSERT [dbo].[Courses] ([CourseID], [CourseName], [PrerequiteCourseID],CreditHours) VALUES (20, N'Data Structures', 30,3)
 INSERT [dbo].[Courses] ([CourseID], [CourseName], [PrerequiteCourseID],CreditHours) VALUES (30, N'Programing', NULL,3)
 INSERT [dbo].[Courses] ([CourseID], [CourseName], [PrerequiteCourseID],CreditHours) VALUES (40, N'Basic Electronics', NULL,3)
 go
 
-go
-Create table Instructors 
-(
+-- table instructors
+Create table Instructors (
 InstructorID int Primary key,
 Name varchar(30),
 Department varchar(7) ,
 )
 GO
+
 INSERT [dbo].[Instructors] ([InstructorID], [Name], [Department]) VALUES (100, N'Ishaq Raza', N'CS')
 INSERT [dbo].[Instructors] ([InstructorID], [Name], [Department]) VALUES (200, N'Zareen Alamgir', N'CS')
 INSERT [dbo].[Instructors] ([InstructorID], [Name], [Department]) VALUES (300, N'Saima Zafar', N'EE')
 go
-Create table Semester
-(
+
+-- table semester
+Create table Semester (
 Semester varchar(15) Primary key,
 [Status] varchar(10),
 )
 GO
+
 INSERT [dbo].[Semester] ([Semester], [Status]) VALUES (N'Fall2016', N'Complete')
 INSERT [dbo].[Semester] ([Semester], [Status]) VALUES (N'Spring2016', N'Complete')
 INSERT [dbo].[Semester] ([Semester], [Status]) VALUES (N'Spring2017', N'InProgress')
 INSERT [dbo].[Semester] ([Semester], [Status]) VALUES (N'Summer2016', N'Cancelled')
 go
-Create table Courses_Semester
-(
+
+-- tables courses semester
+Create table Courses_Semester (
 InstructorID int Foreign key References Instructors(InstructorID),
 CourseID int Foreign key References Courses(CourseID),
 Semester varchar(15) Foreign key References Semester(Semester), 
@@ -70,6 +77,7 @@ AvailableSeats int,
 Department varchar(2)
 )
 GO
+
 INSERT [dbo].[Courses_Semester] ([InstructorID], [CourseID], [Semester], [Section], [AvailableSeats], [Department]) VALUES (200, 10, N'Spring2017', N'D', 45, N'CS')
 INSERT [dbo].[Courses_Semester] ([InstructorID], [CourseID], [Semester], [Section], [AvailableSeats], [Department]) VALUES (200, 10, N'Spring2017', N'C', 0, N'CS')
 INSERT [dbo].[Courses_Semester] ([InstructorID], [CourseID], [Semester], [Section], [AvailableSeats], [Department]) VALUES (100, 10, N'Spring2017', N'A', 6, N'CS')
@@ -79,16 +87,15 @@ INSERT [dbo].[Courses_Semester] ([InstructorID], [CourseID], [Semester], [Sectio
 
 go
 
-
-
-create table Registration
-(
+-- table registration
+create table Registration (
 Semester varchar(15) Foreign key References Semester(Semester),
 RollNumber  varchar(7) Foreign key References Students(RollNo),
 CourseID int Foreign key References Courses(CourseID), 
 Section varchar(1),
 GPA float
 )
+
 INSERT [dbo].[Registration] ([Semester], [RollNumber], [CourseID], [Section],GPA) VALUES (N'Fall2016', N'1', 20, N'A', 3.3)
 INSERT [dbo].[Registration] ([Semester], [RollNumber], [CourseID], [Section],GPA) VALUES (N'Fall2016', N'2', 20, N'B', 4)
 INSERT [dbo].[Registration] ([Semester], [RollNumber], [CourseID], [Section],GPA) VALUES (N'Spring2016', N'1', 30, N'A', 1.0)
@@ -98,20 +105,20 @@ INSERT [dbo].[Registration] ([Semester], [RollNumber], [CourseID], [Section],GPA
 
 go
 
-Create table ChallanForm
-(Semester varchar(15) Foreign key References Semester(Semester),
+Create table ChallanForm (
+Semester varchar(15) Foreign key References Semester(Semester),
 RollNumber  varchar(7) Foreign key References Students(RollNo),
 TotalDues int,
 [Status] varchar(10)
 )
 GO
+
 INSERT [dbo].[ChallanForm] ([Semester], [RollNumber], [TotalDues], [Status]) VALUES (N'Fall2016', N'1', 100000, N'Paid')
 INSERT [dbo].[ChallanForm] ([Semester], [RollNumber], [TotalDues], [Status]) VALUES (N'Fall2016', N'2', 13333, N'Paid')
 INSERT [dbo].[ChallanForm] ([Semester], [RollNumber], [TotalDues], [Status]) VALUES (N'Fall2016', N'3', 5000, N'Paid')
 INSERT [dbo].[ChallanForm] ([Semester], [RollNumber], [TotalDues], [Status]) VALUES (N'Fall2016', N'4', 20000, N'Pending')
 
-
-
+-- displaying the tables formed
 select * from Students
 select * from Courses
 select * from Instructors
@@ -119,7 +126,6 @@ select * from Registration
 select * from Semester
 select * from Courses_Semester
 select * from ChallanForm
-
 
 -- TASK 1
 DROP PROCEDURE PROC2
