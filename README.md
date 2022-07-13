@@ -1,5 +1,5 @@
 # SQL-Transactions
-This file has all the info related to the transactions.
+This file has all the information related to the transactions.
 Some basic concepts which have been mentioned are as follows:
 
 1. Procedure
